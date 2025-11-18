@@ -17,6 +17,7 @@
             --text-secondary: #666666;
             --text-tertiary: #555555;
             --link-color: #0066cc;
+            --border-color: #e0e0e0;
         }
         
         [data-theme="dark"] {
@@ -25,6 +26,7 @@
             --text-secondary: #a8a8a8;
             --text-tertiary: #b8b8b8;
             --link-color: #6ba3ff;
+            --border-color: #333333;
         }
         
         body {
@@ -32,21 +34,24 @@
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 40px 20px;
             transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            min-height: 100vh;
         }
         
-        header {
-            margin-bottom: 60px;
-            position: relative;
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            padding: 40px 30px;
+            position: fixed;
+            height: 100vh;
+            border-right: 1px solid var(--border-color);
         }
         
         .theme-toggle {
             position: absolute;
-            top: 0;
-            right: 0;
+            top: 40px;
+            right: 30px;
             background: none;
             border: none;
             font-size: 24px;
@@ -54,41 +59,71 @@
             padding: 5px;
         }
         
-        h1 {
+        .sidebar h1 {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 8px;
         }
         
-        .subtitle {
+        .sidebar .subtitle {
             color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            margin-bottom: 40px;
+            line-height: 1.5;
         }
         
-        nav {
-            margin-top: 20px;
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
         
-        nav a {
-            color: var(--link-color);
+        .sidebar nav a {
+            color: var(--text-secondary);
             text-decoration: none;
-            margin-right: 20px;
             font-size: 15px;
+            transition: color 0.2s;
         }
         
-        nav a:hover {
-            text-decoration: underline;
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            color: var(--link-color);
+        }
+        
+        .contact-links {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .contact-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .contact-links a:hover {
+            color: var(--link-color);
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 40px 60px;
+            max-width: 800px;
+            width: 100%;
         }
         
         section {
-            margin-bottom: 50px;
+            margin-bottom: 80px;
+            padding-top: 20px;
         }
         
         h2 {
-            font-size: 20px;
+            font-size: 28px;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         p {
@@ -120,60 +155,116 @@
             margin-bottom: 8px;
         }
         
+        ul {
+            list-style-position: inside;
+            margin-left: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
         a {
             color: var(--link-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 40px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <aside class="sidebar">
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
             <span id="theme-icon">🌝</span>
         </button>
+        
         <h1>building things</h1>
         <p class="subtitle">websites / apps / digital tools / creative projects</p>
+        
         <nav>
             <a href="#about">About</a>
-            <a href="#projects">Projects</a>
+            <a href="#projects">Things I've Built</a>
+            <a href="#inspirations">Inspirations</a>
+        </nav>
+        
+        <div class="contact-links">
             <a href="mailto:builtwithharley@gmail.com">Contact</a>
             <a href="https://github.com/builtwithharley" target="_blank">GitHub</a>
-        </nav>
-    </header>
+        </div>
+    </aside>
 
-    <section id="about">
-        <h2>About</h2>
-        <p>
-            Based between Manchester and the Cotswolds. Background in design. 
-            Love creating stuff.
-        </p>
-        <p>
-            This is where I keep track of what I'm building and what I'm learning along the way.
-        </p>
-    </section>
+    <main class="main-content">
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                Based between Manchester and the Cotswolds. Background in design. I love creating stuff.
+            </p>
+            <p>
+                This is where I keep track of what I'm building and what I'm learning along the way.
+            </p>
+        </section>
 
-    <section id="projects">
-        <h2>Things I've Built</h2>
-        
-        <div class="project">
-            <h3>Outdoor Event Tracker</h3>
-            <p>Built with Jamal. A tool to track outdoor events and activities.</p>
-        </div>
-        
-        <div class="project">
-            <h3><a href="https://www.landalestoneltd.co.uk/" target="_blank">Landale Stone</a></h3>
-            <p>Website for a traditional craft company specializing in stonework.</p>
-        </div>
-        
-        <div class="project">
-            <h3>Outdoor.ism</h3>
-            <p>Utility of The Outdoors, online.</p>
-        </div>
-        
-        <div class="project">
-            <h3>More to come...</h3>
-            <p>Currently building and experimenting with new ideas.</p>
-        </div>
-    </section>
+        <section id="projects">
+            <h2>Things I've Built</h2>
+            
+            <div class="project">
+                <h3>Outdoor Event Tracker</h3>
+                <p>Built with Jamal. A tool to track outdoor events and activities.</p>
+            </div>
+            
+            <div class="project">
+                <h3><a href="https://www.landalestoneltd.co.uk/" target="_blank">Landale Stone</a></h3>
+                <p>Website for a traditional craft company specializing in stonework.</p>
+            </div>
+            
+            <div class="project">
+                <h3>Outdoor.ism</h3>
+                <p>Digital project exploring outdoor culture and community.</p>
+            </div>
+            
+            <div class="project">
+                <h3>More to come...</h3>
+                <p>Currently building and experimenting with new ideas.</p>
+            </div>
+        </section>
+
+        <section id="inspirations">
+            <h2>Inspirations</h2>
+            <ul>
+                <li>Ian Brown and The Stone Roses</li>
+                <li>Bruce Lee</li>
+                <li>Matthew McConaughey</li>
+                <li>J R R Tolkien</li>
+                <li>John Cleese</li>
+                <li>Rick Rubin</li>
+                <li>Nightmares on Wax</li>
+                <li>The Lake District</li>
+                <li>George Ingle Finch</li>
+                <li>Naval Ravikant</li>
+                <li>David Attenborough</li>
+                <li>A Tribe Called Quest</li>
+                <li>Moebius</li>
+            </ul>
+        </section>
+    </main>
 
     <script>
         // Check for saved theme preference or default to light mode
@@ -194,6 +285,38 @@
             const icon = document.getElementById('theme-icon');
             icon.textContent = theme === 'light' ? '🌝' : '🌞';
         }
+        
+        // Smooth scroll and active link highlighting
+        const navLinks = document.querySelectorAll('.sidebar nav a');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Highlight active section on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
